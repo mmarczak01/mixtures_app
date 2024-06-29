@@ -2,8 +2,16 @@
   <button
     :style="btnStyles"
     class="btn">
-    <span
-      :class="`fas fa-${icon}`" />
+    <!-- icon -->
+		<span
+  		v-if="icon"
+  		:class="`${iconSet} ${icon}`"  style="font-size: inherit;"/>
+
+		<!-- text -->
+		<span
+  		v-if="text"
+  		v-text="text" />
+
   </button>
 </template>
   
@@ -15,6 +23,13 @@ export default {
     	type: String,
     	required: true
   	},
+		iconSet: {
+  		type: String,
+  		default: 'pi'
+		},
+		text: {
+  		type: String
+		},
   	size: {
     	type: Number,
     	default: 2

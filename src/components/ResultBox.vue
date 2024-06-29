@@ -19,7 +19,34 @@
       :size="4"
       :movement="-0.5"
       :font-size="1.5"
-      icon="sync" />
+      icon="pi-refresh" />
+
+    <!-- open modal btn -->
+    <button-item
+      @click="showModal"
+      :size="4"
+      :movement="-0.5"
+      :font-size="1.5"
+      icon="pi-question"
+      style="margin-left: 10px;" />
+
+    <modal-item
+      v-if="modalVisible"
+      @cancel="hideModal">
+
+      <template v-slot:header>
+        About the app
+      </template>
+
+      <template v-slot:body>
+        Mix three colors to create the perfect one!
+      </template>
+
+      <template v-slot:footer>
+	      <button-item icon="pi-thumbs-up" />
+      </template>
+
+    </modal-item>
 
   </div>
 </template>
@@ -27,9 +54,12 @@
 <script>
 import FlaskItem from './shared/FlaskItem'
 import ButtonItem from './shared/ButtonItem';
+import ModalItem from './shared/ModalItem.vue';
+import modalMixin from '../mixins/ModalMixin';
 
 export default {
   name: 'ResultsBox',
+  mixins: [modalMixin],
   props: {
     mixtures: {
       type: Array,
@@ -48,7 +78,7 @@ export default {
     }
   },
   components: {
-    FlaskItem, ButtonItem
+    FlaskItem, ButtonItem, ModalItem
   }
 }
 </script>
