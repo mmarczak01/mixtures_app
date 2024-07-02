@@ -13,6 +13,8 @@
       :buttonsVisible="false"
       :style="margin"/>
 
+    <p v-text="rgbInfo" />
+
     <!-- refresh btn -->
     <button-item
       @click="$emit('refresh')"
@@ -30,23 +32,33 @@
       icon="pi-question"
       style="margin-left: 10px;" />
 
-    <modal-item
-      v-if="modalVisible"
-      @cancel="hideModal">
+    <router-link :to="colorLink">
+      <button-item
+        :size="4"
+        :movement="-0.5"
+        :font-size="1.5"
+        icon="pi-share-alt"
+        style="margin-left: 10px;" />
+    </router-link>
 
-      <template v-slot:header>
-        About the app
-      </template>
+    <fade-animation>
+      <modal-item
+        v-if="modalVisible"
+        @cancel="hideModal">
 
-      <template v-slot:body>
-        Mix three colors to create the perfect one!
-      </template>
+        <template v-slot:header>
+          About the app
+        </template>
 
-      <template v-slot:footer>
-	      <button-item icon="pi-thumbs-up" />
-      </template>
+        <template v-slot:body>
+          Mix three colors to create the perfect one!
+        </template>
 
-    </modal-item>
+        <template v-slot:footer>
+	        <button-item icon="pi-thumbs-up" />
+        </template>
+      </modal-item>
+    </fade-animation>
 
   </div>
 </template>
@@ -55,7 +67,9 @@
 import FlaskItem from './shared/FlaskItem'
 import ButtonItem from './shared/ButtonItem';
 import ModalItem from './shared/ModalItem.vue';
+import FadeAnimation from './shared/FadeAnimation';
 import modalMixin from '../mixins/ModalMixin';
+import { RouterLink } from 'vue-router';
 
 export default {
   name: 'ResultsBox',
@@ -75,10 +89,19 @@ export default {
     },
     margin() {
       return {margin: '3rem auto' }
+    },
+    rgbInfo () {
+      const [redCol, greenCol, blueCol] = this.mixtures.map(item => Math.floor(item.amount * 2.5));
+      const rgbColor = `rgb(${redCol}, ${greenCol}, ${blueCol})`;
+      return rgbColor;
+    }, 
+    colorLink () {
+      const [redCol, greenCol, blueCol] = this.mixtures.map(item => Math.floor(item.amount * 2.5));
+      return `/color/${redCol}/${greenCol}/${blueCol}`;
     }
   },
   components: {
-    FlaskItem, ButtonItem, ModalItem
+    FlaskItem, ButtonItem, ModalItem, RouterLink, FadeAnimation
   }
 }
 </script>

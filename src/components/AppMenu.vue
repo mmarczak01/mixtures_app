@@ -2,10 +2,10 @@
 <template>
       <Menubar :model="items" class="menuBar">
           <template #item="{ item, props }">
-              <a v-ripple class="flex items-center" v-bind="props.action" :to="item.to">
+              <router-link v-ripple class="flex items-center" v-bind="props.action" :to="item.to">
                   <span :class="item.icon" />
                   <span class="ml-2">{{ item.label }}</span>
-              </a>
+              </router-link>
           </template>
       </Menubar>
 </template>
@@ -13,8 +13,9 @@
 <script>
 
 import Menubar from 'primevue/menubar';
+import { RouterLink } from 'vue-router';
 export default {
-  components: { Menubar },
+  components: { Menubar, RouterLink },
   data() {
       return {
           items: [
@@ -25,12 +26,12 @@ export default {
               },
               {
                   label: 'Mixin',
-                  icon: 'pi pi-star',
-                  to: 'mixin'
+                  icon: 'pi pi-filter',
+                  to: '/mixin'
               },
               {
                   label: 'About',
-                  icon: 'pi pi-envelope',
+                  icon: 'pi pi-info',
                   to: 'about'
               }
           ]
@@ -42,7 +43,7 @@ export default {
 <style lang="scss">
 .menuBar {
   border-radius: 1rem;
-  box-shadow: 0 20px 40px 0 rgba(107,154,212,.3);
+  box-shadow: $box-shadow;
   overflow: hidden;
 }
 </style>

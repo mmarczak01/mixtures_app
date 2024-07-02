@@ -53,7 +53,7 @@ export default {
   margin: auto auto;
   border-radius: 2rem;
   box-shadow: 0 0 20px 20px rgba(0,0,0,0.1);
-  color: #637892;
+  color: $color;
 
   &__body {
     font-size: 1rem;

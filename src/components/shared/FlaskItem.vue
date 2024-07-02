@@ -1,12 +1,15 @@
 <template>
-  <div class="flask" :style="flaskStyle">
+  <div class="flask animate__animated" 
+    :style="flaskStyle" 
+    :class="{'animate__shakeY': isAnimated}"
+    @animationend="isAnimated = false" >
   
     <!-- decrement btn -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--left"
       icon="pi-arrow-down"
-      @click="$emit('decrement')" />
+      @click="$emit('decrement'), addZoom()" />
   
     <div
       :class="fillClasses"
@@ -18,9 +21,8 @@
       class="flask__btn flask__btn--right"
       icon="pi-arrow-up"
       :movement="-0.5"
-    	@click="$emit('increment')" />
+    	@click="$emit('increment'), addZoom()" />
 	</div>
-  
 </template>
 
 <script>
@@ -28,6 +30,9 @@ import ButtonItem from './ButtonItem';
 
 export default {
   name: 'FlaskItem',
+  data: () => ({
+    isAnimated: false
+  }),
   props: {
     size: {
       type: Number,
@@ -76,6 +81,11 @@ export default {
   		return style
   	}
 	}, 
+  methods: {
+    addZoom () {
+      this.isAnimated = true;
+    },
+  },
 	components: { ButtonItem }
 }
 </script>
@@ -89,7 +99,7 @@ export default {
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  box-shadow: 0 20px 40px 0 rgba(107,154,212,.3);
+  box-shadow: $box-shadow;
 
   &__fill {
     width: 100%;
@@ -120,7 +130,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #9a9a9a;
+    background-color: $background-color;
     background-image: linear-gradient(0deg, #9a9a9a 0%, #e8fdff 100%);
     opacity: 0.2;
   }

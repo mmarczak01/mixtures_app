@@ -7,9 +7,11 @@
 
       <!-- header -->   
       <app-menu />   
-
-      <!-- color mixin -->
-      <color-mixin />
+      
+      <!-- router view -->
+      <slide-fade-animation class="animate__fast">
+        <router-view />
+      </slide-fade-animation>
 
     </div>
   </div>
@@ -17,16 +19,19 @@
 
 <script>
 import './styles/global.scss'
+import 'animate.css/animate.min.css'
 import AppHeader from './components/AppHeader'
-import ColorMixin from './components/ColorMixin'
 import AppMenu from './components/AppMenu'
+import { RouterView } from 'vue-router';
+import SlideFadeAnimation from './components/shared/SlideFadeAnimation';
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    ColorMixin,
-    AppMenu
+    AppMenu,
+    RouterView,
+    SlideFadeAnimation
   }
 }
 </script>
